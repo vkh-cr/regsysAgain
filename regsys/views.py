@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from datetime import timedelta
-from .models import DetailRegistration
+from .models import DetailRegistration, Sleeping
 from .forms import RegistrationForm
 
 
@@ -33,4 +33,4 @@ def reg_test(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = RegistrationForm()
-    return render(request, 'regsys/registrationForm.html', {'form': form})
+    return render(request, 'regsys/registrationForm.html', {'form': form, 'regtype': Sleeping.choices})

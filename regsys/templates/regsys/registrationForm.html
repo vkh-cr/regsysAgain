@@ -1,0 +1,42 @@
+{% extends 'materialize/materialize_base_dev.html' %}
+
+{% block content %}
+
+<div class="parallax-container">
+    <div class="row green accent-2" style="margin-bottom: 0">
+        <div class="col s12">
+            <h1 class="green-text text-darken-4">{{ form.first_name }}</h1>
+        </div>
+    </div>
+    <div class="row green accent-1">
+        <div class="col s12">
+            <h2 class="green-text text-darken-4">Everything works great!</h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="card horizontal">
+        <div class="card-stacked">
+            <div class="card-content">
+                <p>
+                    <label>
+                        <input id="{{ form.fri_breakfast.id_for_label }}" name="{{ form.fri_breakfast.html_name }}"
+                               type="checkbox"/>
+                        <span>{{ form.fri_breakfast.label }}</span>
+                    </label>
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" class="btn" value="Odeslat">
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

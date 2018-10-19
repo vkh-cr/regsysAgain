@@ -1,0 +1,44 @@
+{% extends 'materialize/materialize_base_dev.html' %}
+
+{% block content %}
+
+<div class="row green accent-2" style="margin-bottom: 0">
+    <div class="container">
+        <div class="col s12">
+            <h1 class="green-text text-darken-4">Registrace provedena!</h1>
+        </div>
+    </div>
+</div>
+<div class="row green accent-1">
+    <div class="container">
+        <div class="col s12">
+            <h2 class="green-text text-darken-4">Díky!</h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="card horizontal">
+        <div class="card-stacked">
+            <div class="card-content">
+                <p>
+                    Díky {{reg.first_name}}, za Tvoji registraci na Absolventský Velehrad 2019!
+                    Tvou platbu očekáváme na účtu do <b>{{reg.paymentNeed}}</b>, což jsou 2 týdny. Prosím nenechávej to
+                    na
+                    poslední chvíli, díky!
+                    Prosím pošli <b>{{reg.price}} Kč</b> na náš účet
+                <ul class="collection">
+                    <li class="collection-item">2700062738/2010, VAR. SYMBOL: <b>102</b>, SPEC. SYMBOL: <b>{{reg.var_symbol}}</b>
+                    </li>
+                </ul>
+
+                Všechny zásadní informace byly odeslány na Tvůj email {{reg.email}}. Pokud bys je nedostal/a, určitě nám
+                napiš na tym.organizace@absovelntskyvelehrad.cz.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

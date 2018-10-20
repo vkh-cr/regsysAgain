@@ -58,8 +58,8 @@ class DetailRegistration(models.Model):
     email = models.EmailField()
     birth_year = models.IntegerField()
     address = models.CharField(max_length=100)
-    tip = models.IntegerField()
-    message = models.TextField()
+    tip = models.IntegerField(default=10)
+    message = models.TextField(default='None')
 
     fri_breakfast = models.BooleanField(default=True)
     fri_lunch = models.BooleanField(default=True)
@@ -75,8 +75,8 @@ class DetailRegistration(models.Model):
 
     status = models.CharField(max_length=10, choices=RegStatus.choices, default=RegStatus.WAITING_PAYMENT)
 
-    internal_message = models.TextField()
-    price = models.IntegerField(default=1000)
+    internal_message = models.TextField(default='Nothing specific')
+    price = models.IntegerField(default=200)
     date_created = models.DateField(auto_now=True, editable=False)
     var_symbol = models.IntegerField(primary_key=True)
     reg_type = models.CharField(max_length=10, choices=RegType.choices, default=RegType.ATTANDEE)

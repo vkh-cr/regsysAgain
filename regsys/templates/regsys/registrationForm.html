@@ -33,7 +33,7 @@
                         </div>
                         <div class="input-field col s12 m3">
                             <input id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.html_name }}"
-                                   type="text" class="validate">
+                                   type="text" class="validate" value="{{ form.last_name.value }}">
                             <label for="{{ form.last_name.id_for_label }}">Příjmení</label>
                         </div>
                         <div class="input-field col s4 m2">
@@ -93,8 +93,14 @@
                                         <option value="{{option.0}}" name="author_name">{{option.1}}</option>
                                         {% endfor %}
                                     </select>
-                                    <label>Pohlaví</label>
+                                    <label>Ubytování</label>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="{{form.internal_message.id_for_label}}" name="{{ form.internal_message.html_name }}" class="materialize-textarea"></textarea>
+                                <label for="{{form.internal_message.id_for_label}}">Poznámky, alergie atd.</label>
                             </div>
                         </div>
                     </div>
@@ -152,5 +158,6 @@
             }
             updateSum();
         })
+
 </script>
 {% endblock %}

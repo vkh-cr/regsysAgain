@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from datetime import timedelta
-from .models import DetailRegistration, Sleeping
+from datetime import timedelta, datetime
+from .models import DetailRegistration, Sleeping, RegStatus
 from .forms import RegistrationForm
 
 import .payment as p
@@ -33,4 +33,11 @@ def pair_payments(request):
     statement_json = p.download_statement_json()
     for pay in p.json_to_payments(statement_json):
         p.process_payment(pay)
+
+def cancel_timed_out_payments(request):
+    # TODO check this condition is consistent with date in thank_you msg (reg. confirmation email)
+    older_then = datetime.now() - timedelta(days=14)
+    for reg in DetailRegistrations.objects.filter(date_created <= older_then):
+        reg.status = RegStatus.EXPIRED
+        # TODO send expired info email
 

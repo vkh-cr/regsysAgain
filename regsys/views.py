@@ -28,10 +28,16 @@ def reg_test(request):
         form = RegistrationForm()
         return render(request, 'regsys/registrationForm.html', {'form': form, 'regtype': Sleeping.choices})
 
+def detailed_reg_form(request):
+    # TODO copy from reg_test with DetailedRegistrationForm in mind
+
 def pair_payments(request):
     # TODO parametrize by time period (eg last day)
     statement_json = p.download_statement_json()
-    for pay in p.json_to_payments(statement_json):
+    ps = p.json_to_payments(statement_json)
+    ps.save()
+
+    for pay in ps:
         p.process_payment(pay)
 
 def cancel_timed_out_payments(request):

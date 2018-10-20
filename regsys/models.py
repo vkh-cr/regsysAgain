@@ -50,7 +50,7 @@ class RegType:
     
     def maxLen(self):
         max(list(map(lambda p: len(p[0]), RegType.choices)))
-    
+
 
 class DetailRegistration(models.Model):
     first_name = models.CharField(max_length=30, default='lol')

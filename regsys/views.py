@@ -41,3 +41,6 @@ def cancel_timed_out_payments(request):
         reg.status = RegStatus.EXPIRED
         # TODO send expired info email
 
+def export_detailed_reg_excel(request):
+    # TODO na to bude nejaka libka
+

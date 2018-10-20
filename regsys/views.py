@@ -3,6 +3,7 @@ from datetime import timedelta
 from .models import DetailRegistration, Sleeping
 from .forms import RegistrationForm
 
+import .payment as p
 
 def reg_test(request):
     # if this is a POST request we need to process the form data
@@ -25,4 +26,11 @@ def reg_test(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = RegistrationForm()
-    return render(request, 'regsys/registrationForm.html', {'form': form, 'regtype': Sleeping.choices})
+        return render(request, 'regsys/registrationForm.html', {'form': form, 'regtype': Sleeping.choices})
+
+def pair_payments(request):
+    # TODO parametrize by time period (eg last day)
+    statement_json = p.download_statement_json()
+    for pay in p.json_to_payments(statement_json):
+        p.process_payment(pay)
+

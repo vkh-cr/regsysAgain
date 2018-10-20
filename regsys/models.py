@@ -80,3 +80,17 @@ class DetailRegistration(models.Model):
     date_created = models.DateField(auto_now=True, editable=False)
     var_symbol = models.IntegerField(primary_key=True)
     reg_type = models.CharField(max_length=10, choices=RegType.choices, default=RegType.ATTANDEE)
+
+
+class Payment(models.Model):
+    pay_date = models.DateField(auto_now=False, editable=False)
+    amount = models.IntegerField()
+    account_num = models.CharField(max_length=30)
+    account_bank = models.CharField(max_length=30)
+    account_name = models.CharField(max_length=30)
+    var_symbol = models.IntegerField()
+    spec_symbol = models.IntegerField()
+    json = models.CharField(max_length=300)
+
+    def __str__(self):
+        return "Payment acc: %s - %s/%s - %s" % (self.account_name, self.account_num, self.account_bank, self.amount)

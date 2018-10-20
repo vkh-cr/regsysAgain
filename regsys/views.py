@@ -46,15 +46,7 @@ def cancel_timed_out_payments(request):
     for reg in DetailRegistrations.objects.filter(date_created <= older_then):
         reg.status = RegStatus.EXPIRED
         reg.save()
-        # TODO send expired info email
 
 def export_detailed_reg_excel(request):
     # TODO na to bude nejaka libka
-
-def manual_cancel_reg(request):
-    regId = request.POST.get("regId")
-    reg = DetailRegistration.objects.get(pk=regId)
-    reg.status = RegStatus.CANCELLED
-    reg.save()
-    # TODO send cancelled info email
 

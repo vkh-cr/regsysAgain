@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.reg_test),
     path('admin/', admin.site.urls),
     path('test/', views.reg_test),
+    path('regsys', views.regsys_admin)
 ]

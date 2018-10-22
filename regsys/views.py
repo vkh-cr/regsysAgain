@@ -1,9 +1,14 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+
 from datetime import timedelta
+
+
 from .models import DetailRegistration, Sleeping
 from .forms import RegistrationForm
 
-import .payment as p
+
+# from .payment import *
 
 def reg_test(request):
     # if this is a POST request we need to process the form data
@@ -28,9 +33,17 @@ def reg_test(request):
         form = RegistrationForm()
         return render(request, 'regsys/registrationForm.html', {'form': form, 'regtype': Sleeping.choices})
 
-def pair_payments(request):
-    # TODO parametrize by time period (eg last day)
-    statement_json = p.download_statement_json()
-    for pay in p.json_to_payments(statement_json):
-        p.process_payment(pay)
 
+# def pair_payments(request):
+#     # TODO parametrize by time period (eg last day)
+#     statement_json = p.download_statement_json()
+#     for pay in p.json_to_payments(statement_json):
+#         p.process_payment(pay)
+
+
+def regsys_admin(request):
+    if request.user.is_authenticated:
+        objects = DetailRegistration.objects.all()
+        return render(request, 'regsys/table_of_users.html', {'details': objects})
+    else:
+        return HttpResponse('No access buddy.')

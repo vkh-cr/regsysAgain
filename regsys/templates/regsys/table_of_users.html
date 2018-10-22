@@ -1,0 +1,112 @@
+{% extends 'materialize/materialize_base_dev.html' %}
+{% load static %}
+<link type="text/css" rel="stylesheet" href="{% static 'static/main.css' %}"/>
+
+{% block content %}
+<style>
+
+.PAID {
+    color: #4caf50;
+}
+
+.WAITING_PAYMENT {
+    color: #ffa000;
+}
+
+.EXPIRED {
+    color: #f44336;
+}
+
+
+</style>
+<div class="row green accent-2" style="margin-bottom: 0">
+    <div class="container">
+        <div class="col s12">
+            <h1 class="green-text text-darken-4">Všichni přihlášení</h1>
+        </div>
+    </div>
+</div>
+<div class="row green accent-1">
+    <div class="container">
+        <div class="col s12">
+            <h2 class="green-text text-darken-4">Viditelné jen pro přihlášené.</h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="card horizontal">
+        <div class="card-stacked">
+            <div class="card-content">
+                <table class="striped highlight">
+                    <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>RegisterDate</th>
+                        <th>Name</th>
+                        <th>Spaní</th>
+                        <th>Intern message</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for detail in details %}
+                    <tr>
+                        <td style="width: 20px" class="{{ detail.status }} center"><i class="material-icons">
+                            {% if detail.status == 'PAID' %}
+                                done
+                            {% elif detail.status == 'WAITING_PAYMENT' %}
+                                av_timer
+                            {% elif detail.status == 'EXPIRED' %}
+                                error
+                            {% elif detail.status == 'CANCELLED' %}
+                                clear
+                            {% endif %}
+                        </i></td>
+                        <td>{{ detail.date_created }}</td>
+                        <td><a class="modal-trigger" onclick="updateDetailModal({ 'first_name': '{{detail.first_name }}','last_name': '{{detail.last_name}}' })" href="#demo-modal">{{ detail.first_name }} {{ detail.last_name }}</a></td>
+                        <td>{{ detail.fri_night }}, {{ detail.sat_night }}</td>
+                        <td>{{ detail.internal_message }}</td>
+                    </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <div id="demo-modal" class="modal">
+    <div class="modal-content">
+      <p id="detail_name"></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-red btn red lighten-1">Close</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_javascripts %}
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.collapsible').collapsible();
+    $('.modal').modal();
+});
+
+var updateDetailModal = function(detail){
+
+    $('#detail_name').text(detail.first_name + ' ' + detail.last_name )
+}
+
+</script>
+{% endblock %}
+
+

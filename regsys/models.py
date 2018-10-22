@@ -17,10 +17,10 @@ class Sleeping:
 
 
 class RegStatus:
-    WAITING_PAYMENT = 'Ceka na zaplaceni'
-    PAID = 'Zaplaceno'
-    EXPIRED = 'Platba vyprsela'
-    CANCELLED = 'Zruseno'
+    WAITING_PAYMENT = 'WAITING_PAYMENT'
+    PAID = 'PAID'
+    EXPIRED = 'EXPIRED'
+    CANCELLED = 'CANCELLED'
 
     choices = (
         (WAITING_PAYMENT, 'Ceka na zaplaceni'),
@@ -73,13 +73,16 @@ class DetailRegistration(models.Model):
     fri_night = models.CharField(max_length=10, choices=Sleeping.choices, default=Sleeping.BED)
     sat_night = models.CharField(max_length=10, choices=Sleeping.choices, default=Sleeping.BED)
 
-    status = models.CharField(max_length=10, choices=RegStatus.choices, default=RegStatus.WAITING_PAYMENT)
+    status = models.CharField(max_length=30, choices=RegStatus.choices, default=RegStatus.WAITING_PAYMENT)
 
     internal_message = models.TextField(default='Nothing specific')
     price = models.IntegerField(default=200)
     date_created = models.DateField(auto_now=True, editable=False)
     var_symbol = models.IntegerField(primary_key=True)
     reg_type = models.CharField(max_length=10, choices=RegType.choices, default=RegType.ATTANDEE)
+
+    def __str__(self):
+        return "DetailRegistration, {} {}, status {}".format(self.first_name, self.last_name, self.status)
 
 
 class Payment(models.Model):
